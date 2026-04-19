@@ -11,7 +11,7 @@ El prototipo web Taltech se desarrolla en el sector ganadero, específicamente o
 
 4. Escasa disponibilidad de información oportuna para la toma de decisiones.
 
-Por lo tanto, el prototipo web propuesto responde directamente a la necesidad de superar dichas limitaciones mediante una solución digital adaptada al contexto productivo y tecnológico del sector.
+Por lo tanto, el prototipo web propuesto responde directamente a la necesidad de superar dichas limitaciones mediante una solución digital adaptada al contexto productivo y tecnológico del sector
 
 
 
