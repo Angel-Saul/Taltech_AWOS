@@ -18,7 +18,7 @@ En esta sección se encuentra la documentación generada para **Taltech**.
 
 > TALTECH  
 >  
-> | - **Documentation**  
+> | - **Docs**  
 >      &nbsp;&nbsp;&nbsp; | - BRs  
 >      &nbsp;&nbsp;&nbsp; | - FRs  
 >      &nbsp;&nbsp;&nbsp; | - GUI  
