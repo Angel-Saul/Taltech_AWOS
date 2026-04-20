@@ -24,6 +24,6 @@ La GUI es la interfaz visual que permite a los usuarios interactuar con el softw
 |Integrante|Contacto|Rol|Observaciones|
 |------------|--------|---|---|
 |Angel Saul Barrios Martinez|[@Angel-Saul](https://github.com/Angel-Saul)|Líder de equipo y desarrollador de frontend|Revisado y aprobado.|
-|Jhony Nery Hernandez|[@Jonhy-1st](https://github.com/Jonhy-1st)|Desarrollador de bases de datos|Revisado y aprobado.|
+|Jonhy Neri Hernández|[@Jonhy-1st](https://github.com/Jonhy-1st)|Desarrollador de bases de datos|Revisado y aprobado.|
 |Luis Felipe Cazarez Marquez|[@xluiscm](https://github.com/xluiscm)|Desarrollador de backend|Revisado.|
 |Aylin Esteban Luna|[@Aylin-Luna](https://github.com/Aylin-Luna)|Desarrollador de documentacion|Revisado.|
