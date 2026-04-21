@@ -1,1 +1,0 @@
-para merge, despues borrar 
