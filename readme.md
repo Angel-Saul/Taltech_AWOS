@@ -28,11 +28,11 @@ Taltech es una aplicación web que permite centralizar la gestión de múltiples
 
 ---
 
-## PLANTEAMIENTO DEL PROBLEMA
+### PLANTEAMIENTO DEL PROBLEMA
 
-<p align="justify">
-En muchos ranchos ganaderos, la información se gestiona de manera manual mediante registros en papel, lo que provoca errores, pérdida de datos y dificultad para acceder a información histórica. Esta situación limita la capacidad de organización, control del inventario y toma de decisiones basada en datos reales. Asimismo, la falta de herramientas tecnológicas accesibles para usuarios con poca experiencia digital dificulta la modernización del sector ganadero.
-</p>
+<p align="justify">En la actualidad, una gran parte de los ganaderos continúa gestionando la información de sus ranchos mediante métodos manuales como libretas, hojas sueltas o registros desordenados. Este modelo provoca diversos problemas: pérdida o duplicación de datos, errores en el control de ganado, dificultad para consultar información histórica y poca capacidad para tomar decisiones informadas.
+A estas limitaciones se suma que la mayoría de las herramientas digitales disponibles no están adaptadas al nivel tecnológico del usuario final, lo que crea barreras para su uso y limita su adopción. La falta de interfaces simples, menús intuitivos y procesos guiados genera confusión y reduce la eficiencia operativa.
+La necesidad central es contar con una solución que digitalice los registros del rancho, sea fácil de aprender, brinde retroalimentación clara, minimice errores y permita gestionar el ganado desde cualquier dispositivo de manera confiable.</p>
 
 ---
 
@@ -62,10 +62,20 @@ Diseñar e implementar una plataforma web para la gestión ganadera que permita 
 - **Facilidad de uso:** Diseñar una interfaz accesible para usuarios con poca experiencia tecnológica.  
 
 ---
+## IDENTIDAD GRAFICA
+Logo del proyecto:
+![TALTECH](docs/images/logoBlanco.png)
+
+---
+
+## PALETA DE COLORES
+![Paleta de colores](docs/images/PaletaColores.png)
+
+---
 
 ## DIAGRAMA DE GANTT
 
-<img src="FrontEnd/Assets/Imagenes/gantt.png" width="80%" />
+<img src="docs/images/diagrama de Gantt Taltech.jpeg" width="80%" />
 
 ---
 
@@ -138,18 +148,17 @@ Esta arquitectura permite escalabilidad, mantenimiento eficiente y acceso desde 
 
 ## TABLA DE COLABORADORES
 
-| Nombre                      | Usuario GitHub | Rol |
-|----------------------------|----------------|-----|
-| Angel Saúl Barrios Martínez | - | Frontend / Desarrollo |
-| Luis Felipe Cázarez Márquez | - | Backend |
-| Aylin Esteban Luna          | - | Documentación |
-| Jonhy Neri Hernández        | - | Base de Datos |
-
+| Integrante | Contacto | Rol | 
+|------------|----------|-----|
+| Angel Saul Barrios Martinez | [@Angel-Saul](https://github.com/Angel-Saul) | Líder de equipo y desarrollador de frontend | 
+| Jonhy Neri Hernandez | [@Jonhy-1st](https://github.com/Jonhy-1st) | Desarrollador de bases de datos | 
+| Luis Felipe Cazarez Marquez | [@xluiscm](https://github.com/xluiscm) | Desarrollador de backend | 
+| Aylin Esteban Luna | [@Aylin-Luna](https://github.com/Aylin-Luna) | Desarrollador de documentación | 
 ---
 
 ## ORGANIGRAMA DEL EQUIPO
 
-<img src="FrontEnd/Assets/Imagenes/organigrama.png" width="80%" />
+<img src="docs/images/organigrama Taltech.png" width="80%" />
 
 ---
 
