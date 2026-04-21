@@ -1,0 +1,33 @@
+extends ../layout/inicio
+
+block content
+  - var ocultarTodo = false
+
+  //- Contenedor principal centrado
+  .min-h-screen.flex.items-center.justify-center.bg-slate-100.px-4.py-4
+    
+    //- Tarjeta con diseño TalTech
+    div(class="max-w-md w-full bg-white shadow-2xl overflow-hidden border border-slate-200 flex flex-col rounded-[3rem]")
+      
+      //- Cabecera Verde Dinámica
+      .relative.p-10.text-white.flex.flex-col.justify-center.items-center.text-center(style="background-color: #9BA657;")
+        .mb-4
+          img.mx-auto(src="/assets/logoBlanco.png" alt="Logo TalTech" class="h-20 w-auto drop-shadow-lg")
+        
+        //- CAMBIO: Ahora usa la variable 'pagina' del controlador
+        h2.text-3xl.font-black.tracking-tighter.leading-tight= pagina
+        
+        .absolute.bottom-0.left-0.w-full.h-12.opacity-20(style="background: linear-gradient(transparent, rgba(255,255,255,0.4));")
+
+      //- Estructura del mensaje dinámico
+      .p-8.flex.flex-col.justify-center.items-center.text-center(class="lg:p-12")
+        //- CAMBIO: Ahora usa la variable 'mensaje' del controlador
+        p.text-slate-600.text-lg.font-medium.leading-relaxed= mensaje
+
+        //- Botón de acción
+        .pt-8.w-full
+          a.w-full.py-4.px-8.rounded-2xl.text-white.font-bold.shadow-xl.transition-all.inline-block(
+            href="/auth/login" 
+            style="background-color: #9BA657;" 
+            class="hover:brightness-110"
+          ) Ir al Inicio de Sesión

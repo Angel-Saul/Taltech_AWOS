@@ -1,0 +1,176 @@
+extends ../layout/inicio
+
+block header
+  header.relative(style="z-index: 9999;")
+    include ../layout/headerPrincipal
+
+block footer
+  include ../layout/footer
+
+block content
+  main.mx-auto.pt-32.pb-16.w-full.max-w-5xl.px-6.flex-grow
+    .flex.flex-col(class="md:flex-row gap-10 items-start")
+      
+      aside(class="w-full md:w-64 shrink-0")
+        nav(class="bg-white p-4 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 sticky top-32")
+          p(class="text-[10px] font-black uppercase text-slate-400 mb-6 mt-2 ml-4 tracking-[0.2em]") Configuración
+          
+          .flex.flex-col.gap-2
+            each item in [{id:'datos-generales', n:'Identidad'}, {id:'ubicacion', n:'Localización'}, {id:'contacto', n:'Comunicación'}, {id:'redes', n:'Redes Sociales'}]
+              button(
+                onclick=`showSection('${item.id}')` 
+                class="sidebar-btn w-full flex items-center px-6 py-4 rounded-3xl font-bold transition-all duration-300 group text-slate-500 hover:bg-slate-50" 
+                data-section=item.id
+              )
+                span.text-sm= item.n
+
+      div(class="grow w-full max-w-2xl mx-auto md:mx-0")
+        
+        //- 1. IDENTIDAD
+        section#section-datos-generales(class="content-section bg-white p-12 rounded-[3.5rem] shadow-xl border border-slate-50 space-y-10 min-h-[550px] flex flex-col")
+          .flex.justify-between.items-start
+            h2.text-3xl.font-black.text-slate-800 Identidad
+            button(onclick="openModal('datos-generales')" class="text-[#9ba657] font-extrabold hover:opacity-70") Editar
+          
+          div(class="flex flex-col items-center justify-center gap-6 p-10 bg-slate-50 rounded-[2.5rem] border border-dashed border-slate-200 flex-grow")
+            div(class="w-40 h-40 rounded-full bg-white flex items-center justify-center border-4 border-white shadow-xl overflow-hidden")
+              if rancho.fotografia
+                img(src=`/uploads/${rancho.fotografia}` class="w-full h-full object-cover")
+              else
+                i.fas.fa-camera.text-4xl.text-slate-200
+            div.text-center
+              span(class="text-[10px] font-black uppercase text-slate-400 tracking-widest") Nombre del Rancho
+              h3.text-2xl.font-black.text-slate-800= rancho.nombre
+              p.text-slate-500.mt-2= rancho.descripcion || 'Sin descripción'
+
+        //- 2. LOCALIZACIÓN
+        section#section-ubicacion(class="content-section hidden bg-white p-12 rounded-[3.5rem] shadow-xl border border-slate-50 space-y-8 min-h-[550px] flex flex-col")
+          .flex.justify-between.items-start
+            h2.text-3xl.font-black.text-slate-800 Localización
+            button(onclick="openModal('ubicacion')" class="text-[#9ba657] font-extrabold hover:opacity-70") Editar
+          .grid.grid-cols-2.gap-4.flex-grow
+            each val, key in {País: rancho.pais, Estado: rancho.estado, Municipio: rancho.municipio, Colonia: rancho.colonia, Calle: rancho.calle, 'Num. Ext': rancho.numero_exterior}
+              div(class="p-4 bg-slate-50 rounded-2xl border border-slate-100")
+                span(class="text-[10px] font-black uppercase text-slate-400")= key
+                p.font-bold.text-slate-700= val || '---'
+
+        //- 3. COMUNICACIÓN
+        section#section-contacto(class="content-section hidden bg-white p-12 rounded-[3.5rem] shadow-xl border border-slate-50 space-y-8 min-h-[550px] flex flex-col")
+          .flex.justify-between.items-start
+            h2.text-3xl.font-black.text-slate-800 Comunicación
+            button(onclick="openModal('contacto')" class="text-[#9ba657] font-extrabold hover:opacity-70") Editar
+          .space-y-4.flex-grow
+            each red in [{n:'WhatsApp/Celular', i:'fa-mobile-screen', v: rancho.numero_telefono}, {n:'Teléfono Fijo', i:'fa-phone', v: rancho.telefono_fijo}, {n:'Correo Electrónico', i:'fa-envelope', v: rancho.correo}]
+              div(class="flex items-center gap-6 p-5 bg-slate-50 rounded-2xl border border-slate-100")
+                i.fas(class=`${red.i} text-[#9ba657] text-lg w-6`)
+                div
+                  p(class="text-[10px] font-black uppercase text-slate-400")= red.n
+                  p.font-bold.text-slate-700= red.v || 'No registrado'
+
+        //- 4. REDES SOCIALES
+        section#section-redes(class="content-section hidden bg-white p-12 rounded-[3.5rem] shadow-xl border border-slate-50 space-y-8 min-h-[550px] flex flex-col")
+          .flex.justify-between.items-start
+            h2.text-3xl.font-black.text-slate-800 Redes Sociales
+            button(onclick="openModal('redes')" class="text-[#9ba657] font-extrabold hover:opacity-70") Editar
+          .grid.grid-cols-1.gap-4.flex-grow
+            each red in [{n:'Facebook', i:'fa-facebook', v: rancho.facebook}, {n:'Instagram', i:'fa-instagram', v: rancho.instagram}]
+              div(class="flex items-center gap-6 p-6 bg-slate-50 rounded-3xl border border-slate-100")
+                i.fab(class=`${red.i} text-2xl text-[#9ba657]`)
+                div
+                  p(class="text-[10px] font-black uppercase text-slate-400")= red.n
+                  p.font-bold.text-slate-700= red.v || 'No vinculado'
+
+  //- --- MODAL ---
+  #modal-container(class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[10001] items-center justify-center p-4")
+    div(class="bg-white w-full max-w-lg rounded-[3rem] p-10 shadow-2xl max-h-[90vh] overflow-y-auto")
+      h2#modal-title(class="text-3xl font-black mb-6 text-slate-800")
+      form#edit-form.space-y-4(method="POST" action=`/auth/editarRancho?_csrf=${csrfToken}` enctype="multipart/form-data")
+        input(type="hidden" name="_csrf" value=csrfToken)
+        
+        #modal-inputs.grid.grid-cols-1.gap-4
+        .flex.gap-4.pt-6
+          button(class="flex-1 bg-slate-100 text-slate-600 py-4 rounded-2xl font-bold" type="button" onclick="closeModal()") Cancelar
+          button(class="flex-1 text-white py-4 rounded-2xl font-bold shadow-lg" style="background-color: #9ba657;" type="submit") Guardar Cambios
+
+  script.
+    const rancho = !{JSON.stringify(rancho)};
+    const tokenCsrf = "!{csrfToken}";
+
+    function showSection(sectionId) {
+      document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
+      const section = document.getElementById('section-' + sectionId);
+      if(section) section.classList.remove('hidden');
+      
+      document.querySelectorAll('.sidebar-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-800', 'text-white');
+        btn.classList.add('text-slate-500');
+      });
+      const activeBtn = document.querySelector(`[data-section="${sectionId}"]`);
+      if(activeBtn) activeBtn.classList.add('bg-slate-800', 'text-white');
+    }
+
+    function openModal(type) {
+      const container = document.getElementById('modal-container');
+      const title = document.getElementById('modal-title');
+      const inputs = document.getElementById('modal-inputs');
+      const form = document.getElementById('edit-form');
+      
+      inputs.innerHTML = '';
+      container.classList.replace('hidden', 'flex');
+      form.action = `/auth/editarRancho?_csrf=${tokenCsrf}`;
+
+      if (type === 'datos-generales') {
+        title.innerText = "Identidad del Rancho";
+        createInput("Nombre", "nombre", rancho.nombre);
+        createTextarea("Descripción/Historia", "descripcion", rancho.descripcion);
+        createFileInput("Fotografía Principal", "fotografia");
+      } 
+      else if (type === 'ubicacion') {
+        title.innerText = "Dirección y Ubicación";
+        createInput("País", "pais", rancho.pais);
+        createInput("Estado", "estado", rancho.estado);
+        createInput("Municipio", "municipio", rancho.municipio);
+        createInput("Colonia", "colonia", rancho.colonia);
+        createInput("Calle", "calle", rancho.calle);
+        createInput("Número Exterior", "numero_exterior", rancho.numero_exterior);
+        createInput("Número Interior", "numero_interior", rancho.numero_interior);
+      } 
+      else if (type === 'contacto') {
+        title.innerText = "Información de Contacto";
+        createInput("Número Teléfono (WhatsApp)", "numero_telefono", rancho.numero_telefono);
+        createInput("Teléfono Fijo", "telefono_fijo", rancho.telefono_fijo);
+        createInput("Correo Electrónico", "correo", rancho.correo);
+      }
+      else if (type === 'redes') {
+        title.innerText = "Redes Sociales";
+        createInput("URL Facebook", "facebook", rancho.facebook);
+        createInput("URL Instagram", "instagram", rancho.instagram);
+      }
+    }
+
+    function createInput(label, name, value) {
+      const div = document.createElement('div');
+      div.innerHTML = `<label class="block text-[10px] font-black uppercase text-slate-400 mb-1 ml-2">${label}</label>
+        <input type="text" name="${name}" value="${value || ''}" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#9ba657]/20">`;
+      document.getElementById('modal-inputs').appendChild(div);
+    }
+
+    function createTextarea(label, name, value) {
+      const div = document.createElement('div');
+      div.innerHTML = `<label class="block text-[10px] font-black uppercase text-slate-400 mb-1 ml-2">${label}</label>
+        <textarea name="${name}" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#9ba657]/20">${value || ''}</textarea>`;
+      document.getElementById('modal-inputs').appendChild(div);
+    }
+
+    function createFileInput(label, name) {
+      const div = document.createElement('div');
+      div.innerHTML = `<label class="block text-[10px] font-black uppercase text-slate-400 mb-1 ml-2">${label}</label>
+        <input type="file" name="${name}" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-[#9ba657]/10 file:text-[#9ba657] hover:file:bg-[#9ba657]/20 cursor-pointer">`;
+      document.getElementById('modal-inputs').appendChild(div);
+    }
+
+    function closeModal() {
+      document.getElementById('modal-container').classList.replace('flex', 'hidden');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => showSection('datos-generales'));

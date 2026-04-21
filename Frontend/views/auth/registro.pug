@@ -1,0 +1,179 @@
+extends ../layout/inicio
+
+block content
+  - var ocultarTodo = false
+
+  //- Contenedor de Notificaciones (Z-index manual para evitar error de Pug)
+  div#container-notifications.fixed.top-5.right-5.flex.flex-col.gap-3.w-full.max-w-xs.pointer-events-none(style="z-index: 10000;")
+    if errores || exito
+      if errores
+        each error in errores
+          div(class="toast-notification bg-white border-l-4 border-red-500 shadow-2xl p-4 rounded-xl flex items-center justify-between transform transition-all duration-500 ease-in-out translate-x-full opacity-0 relative overflow-hidden pointer-events-auto")
+            div.flex.items-center.gap-3
+              span.bg-red-100.p-2.rounded-full
+                svg.w-5.h-5.text-red-600(fill="none" stroke="currentColor" viewBox="0 0 24 24")
+                  path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z")
+              p.text-sm.text-gray-800.font-medium= error.msg || error
+            button.btn-close-toast.ml-4.text-gray-400(class="hover:text-gray-600 transition-colors")
+              svg.w-4.h-4(fill="none" stroke="currentColor" viewBox="0 0 24 24")
+                path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12")
+            div(class="toast-progress absolute bottom-0 left-0 h-1 w-full bg-red-500 transition-all duration-[5000ms] ease-linear")
+
+      if exito
+        div(class="toast-notification bg-white border-l-4 shadow-2xl p-4 rounded-xl flex items-center justify-between transform transition-all duration-500 ease-in-out translate-x-full opacity-0 relative overflow-hidden pointer-events-auto" style="border-left-color: #9BA657;")
+          div.flex.items-center.gap-3
+            span.bg-green-100.p-2.rounded-full
+              svg.w-5.h-5(fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #9BA657;")
+                path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7")
+            p.text-sm.text-gray-800.font-medium ¡Registro exitoso!
+          button.btn-close-toast.ml-4.text-gray-400(class="hover:text-gray-600 transition-colors")
+            svg.w-4.h-4(fill="none" stroke="currentColor" viewBox="0 0 24 24")
+              path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12")
+          div(class="toast-progress absolute bottom-0 left-0 h-1 w-full transition-all duration-[5000ms] ease-linear" style="background-color: #9BA657;")
+
+  .min-h-screen.flex.items-center.justify-center.bg-slate-100.px-4.pt-32.pb-20.relative.pointer-events-none(style="z-index: 1;")
+    .max-w-4xl.w-full.bg-white.shadow-2xl.overflow-hidden.border.border-slate-200.flex.flex-col.pointer-events-auto(class="rounded-[3rem] md:flex-row")
+      
+      .relative.flex-1.p-10.text-white.flex.flex-col.justify-center.items-center.text-center(style="background-color: #9BA657;")
+        div(data-aos="fade-up")
+          .mb-4
+            img.mx-auto(src="/assets/logoBlanco.png" alt="Logo TalTech" class="h-20 w-auto drop-shadow-lg")
+          h2.text-3xl.font-black.tracking-tighter.leading-tight Crea tu cuenta en 
+            br
+            span.text-white TalTech
+          p.mt-3.text-sm.text-white.opacity-80.font-medium Gestión inteligente para el éxito de su ganado.
+        .absolute.bottom-0.left-0.w-full.h-20.opacity-20(style="background: linear-gradient(transparent, rgba(255,255,255,0.4));")
+
+      .flex-1.p-8.flex.flex-col.justify-center(class="lg:p-12")
+        div(data-aos="fade-left")
+          h1.text-3xl.font-black.text-slate-900 Registro
+          p.text-slate-500.mt-1 Ingrese sus datos para crear una cuenta.
+
+          form#formRegistro.mt-6.space-y-3(action="/auth/registro" method="POST" novalidate)
+            input(type="hidden" name="_csrf" value=csrfToken)
+            .grid.grid-cols-1(class="md:grid-cols-2 gap-3")
+              div
+                label.block.text-xs.font-semibold.text-slate-400.uppercase.tracking-widest.mb-1 Nombre (s)
+                input.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50(type="text" name="nombre" data-label="Nombre" placeholder="Ej. Juan Antonio" value= usuario ? usuario.nombre : '' required class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm transition-colors")
+              div
+                label.block.text-xs.font-semibold.text-slate-400.uppercase.tracking-widest.mb-1 Apellido Paterno
+                input.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50(type="text" name="apellido_p" data-label="Apellido Paterno" placeholder="Ej. García" value= usuario ? usuario.apellido_p : '' required class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm transition-colors")
+            
+            .grid.grid-cols-1(class="md:grid-cols-2 gap-3")
+              div
+                label.block.text-xs.font-semibold.text-slate-400.uppercase.tracking-widest.mb-1 Apellido Materno
+                input.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50(type="text" name="apellido_m" data-label="Apellido Materno" placeholder="Ej. Pérez" value= usuario ? usuario.apellido_m : '' required class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm transition-colors")
+              div
+                label.block.text-xs.font-semibold.text-slate-400.uppercase.tracking-widest.mb-1 Género
+                select.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50(name="genero" data-label="Género" required class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm transition-colors")
+                  option(value="" disabled selected) Seleccionar género
+                  option(value="1") Masculino
+                  option(value="2") Femenino
+            
+            .grid.grid-cols-1(class="md:grid-cols-2 gap-3")
+              div
+                label.block.text-xs.font-semibold.text-slate-400.uppercase.tracking-widest.mb-1 Fecha de Nacimiento
+                input.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50(type="date" name="fecha_n" data-label="Fecha de Nacimiento" required class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm transition-colors")
+              div
+                label.block.text-xs.font-semibold.text-slate-400.uppercase.tracking-widest.mb-1 Correo Electrónico
+                input.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50(type="email" name="email" data-label="Correo Electrónico" placeholder="ejemplo@correo.com" value= usuario ? usuario.email : '' required class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm transition-colors")
+            
+            .grid.grid-cols-1(class="md:grid-cols-2 gap-3")
+              div
+                label.block.text-xs.font-semibold.text-slate-400.uppercase.tracking-widest.mb-1 Contraseña
+                .relative
+                  input#password.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50(type="password" name="password" data-label="Contraseña" placeholder="********" required class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm transition-colors")
+                  button.toggle-password.absolute.right-3.top-3.text-slate-400(type="button" data-target="password")
+                    svg.h-5.w-5(fill="none" viewBox="0 0 24 24" stroke="currentColor")
+                      path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z")
+                      path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z")
+              div
+                label.block.text-xs.font-semibold.text-slate-400.uppercase.tracking-widest.mb-1 Confirmar
+                .relative
+                  input#password_confirm.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50(type="password" name="password_confirm" data-label="Confirmar contraseña" placeholder="********" required class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm transition-colors")
+                  button.toggle-password.absolute.right-3.top-3.text-slate-400(type="button" data-target="password_confirm")
+                    svg.h-5.w-5(fill="none" viewBox="0 0 24 24" stroke="currentColor")
+                      path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z")
+                      path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z")
+
+            .pt-4
+              button.w-full.py-4.rounded-2xl.text-white.font-bold.shadow-xl.transition-all(type="submit" style="background-color: #9BA657;" class="hover:brightness-110") Registrarme
+              .text-center.mt-4
+                p.text-sm.text-slate-500 ¿Ya tienes cuenta? 
+                  a.font-bold(href="/auth/login" style="color: #9BA657;" class="hover:underline") Inicia sesión aquí
+
+  script.
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('container-notifications');
+
+      function initToast(toast, index = 0) {
+        const progressBar = toast.querySelector('.toast-progress');
+        setTimeout(() => {
+          toast.classList.remove('translate-x-full', 'opacity-0');
+          toast.classList.add('translate-x-0', 'opacity-100');
+          if (progressBar) {
+            setTimeout(() => { progressBar.style.width = '0%'; }, 100);
+          }
+        }, index * 200);
+
+        const close = () => {
+          toast.classList.replace('translate-x-0', 'translate-x-full');
+          toast.classList.replace('opacity-100', 'opacity-0');
+          setTimeout(() => toast.remove(), 500);
+        };
+
+        const closeBtn = toast.querySelector('.btn-close-toast');
+        if(closeBtn) closeBtn.onclick = close;
+        setTimeout(close, 5000 + (index * 200));
+      }
+
+      function createToast(mensaje) {
+        const toast = document.createElement('div');
+        toast.className = "toast-notification bg-white border-l-4 border-red-500 shadow-2xl p-4 rounded-xl flex items-center justify-between transform transition-all duration-500 ease-in-out translate-x-full opacity-0 relative overflow-hidden pointer-events-auto";
+        toast.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="bg-red-100 p-2 rounded-full">
+              <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            </span>
+            <p class="text-sm text-gray-800 font-medium">${mensaje}</p>
+          </div>
+          <button class="btn-close-toast ml-4 text-gray-400 hover:text-gray-600 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+          <div class="toast-progress absolute bottom-0 left-0 h-1 w-full bg-red-500 transition-all duration-[5000ms] ease-linear"></div>
+        `;
+        container.appendChild(toast);
+        initToast(toast);
+      }
+
+      // Inicializar los Toasts que vienen del servidor
+      document.querySelectorAll('.toast-notification').forEach((t, i) => initToast(t, i));
+
+      // Validación de cliente
+      const form = document.getElementById('formRegistro');
+      form.addEventListener('submit', (e) => {
+        const inputs = form.querySelectorAll('input[required], select[required]');
+        let errorsCount = 0;
+        
+        inputs.forEach(input => {
+          if (!input.value.trim()) {
+            errorsCount++;
+            input.classList.add('border-red-500', 'bg-red-50');
+            createToast(`El campo ${input.getAttribute('data-label') || 'requerido'} es obligatorio`);
+          } else {
+            input.classList.remove('border-red-500', 'bg-red-50');
+          }
+        });
+
+        if (errorsCount > 0) e.preventDefault();
+      });
+
+      // Lógica de mostrar/ocultar contraseña
+      document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', function() {
+          const target = document.getElementById(this.getAttribute('data-target'));
+          target.type = target.type === 'password' ? 'text' : 'password';
+          this.classList.toggle('text-[#9BA657]');
+        });
+      });
+    });

@@ -1,0 +1,88 @@
+extends ./layout/inicio
+
+block content
+  main.flex-grow.space-y-16.pb-16
+    
+    //- 1. SECCIÓN INICIO
+    section#inicio.pt-24
+      .container.mx-auto.px-6
+        .container-card.flex.flex-col.bg-white.shadow-xl.overflow-hidden(class="rounded-[3rem] lg:flex-row items-center")
+          .p-10(class="lg:w-1/2 lg:p-16" data-aos="fade-right")
+            h1.text-5xl.font-black.leading-tight(style="color: #9ba657;")
+              | Administra tu TalTech de manera eficiente con nuestra app.
+            p.mt-6.text-lg.text-slate-600.leading-relaxed
+              | Controla, organiza y mejora tu producción ganadera con herramientas diseñadas para ti.
+            .mt-10
+              a.px-8.py-4.rounded-xl.text-white.font-bold.transition-all(href="#servicios" style="background-color: #9ba657;" class="hover:brightness-110 shadow-lg shadow-[#9ba657]/20") Ver Servicios
+
+          .flex.items-center.justify-center.bg-white(class="lg:w-1/2 p-10" data-aos="fade-left")
+            img.w-full.object-cover.block(src="/assets/vacas.jpg" alt="Inicio" class="h-80 lg:h-96 rounded-[3rem]")
+
+    //- 2. SECCIÓN ACERCA DE
+    section#acerca-de
+      .container.mx-auto.px-6
+        h2.text-center.text-4xl.font-bold.mb-12.text-slate-900 Acerca de TalTech
+        .container-card.flex.flex-col.bg-white.shadow-xl.overflow-hidden(class="rounded-[3rem] lg:flex-row items-center")
+          .flex.items-center.justify-center.bg-white(class="lg:w-1/2 p-10" data-aos="fade-right")
+            img.w-full.object-cover.block(src="/assets/vaca.jpg" alt="Acerca de" class="h-80 lg:h-96 rounded-[3rem]")
+          
+          .p-10(class="lg:w-1/2 lg:p-16" data-aos="fade-left")
+            h3.text-3xl.font-bold.mb-6(style="color: #9ba657;") ¿Quiénes somos?
+            p.text-xl.text-slate-700.leading-relaxed.mb-4
+              | Somos una plataforma tecnológica dedicada a la digitalización integral de la gestión ganadera.
+            p.text-slate-600
+              | Desde la trazabilidad individual hasta el análisis de tendencias, nuestra misión es brindarte herramientas para que tu rancho sea más productivo.
+
+    //- 3. SECCIÓN SERVICIOS
+    section#servicios
+      .container.mx-auto.px-6
+        h2.text-center.text-4xl.font-bold.mb-12.text-slate-900 Servicios
+        .container-card.flex.flex-col.bg-white.shadow-xl.overflow-hidden(class="rounded-[3rem] lg:flex-row-reverse items-center")
+          .flex.items-center.justify-center.bg-white(class="lg:w-1/2 p-10" data-aos="fade-left")
+            img.w-full.object-cover.block(src="/assets/rancho.jpg" alt="Rancho" class="h-80 lg:h-96 rounded-[3rem]")
+
+          .p-10(class="lg:w-1/2 lg:p-16" data-aos="fade-right")
+            h3.text-3xl.font-bold.mb-6(style="color: #9ba657;") Gestiona tu rancho.
+            p.text-xl.text-slate-700.mb-4
+              | Registra tu establecimiento y aparece en nuestro buscador.
+            p.text-slate-600.mb-2 ¡Deja que el mundo conozca tu rancho!
+            p.text-slate-600 Encuentra compradores y conecta con otros ganaderos.
+
+    //- 4. SECCIÓN GESTIONA GANADO
+    section#gestiona-ganadao
+      .container.mx-auto.px-6
+        .container-card.flex.flex-col.bg-white.shadow-xl.overflow-hidden(class="rounded-[3rem] lg:flex-row items-center")
+          .flex.items-center.justify-center.bg-white(class="lg:w-1/2 p-10" data-aos="fade-right")
+            img.w-full.object-cover.block(src="/assets/servicios.jpg" alt="Ganado" class="h-80 lg:h-96 rounded-[3rem]")
+
+          .p-10(class="lg:w-1/2 lg:p-16" data-aos="fade-left")
+            h3.text-3xl.font-bold.mb-6(style="color: #9ba657;") Gestiona tu ganado.
+            p.text-xl.text-slate-700.leading-relaxed.mb-4
+              | Administra de manera eficiente la información de tu ganado, evita pérdida de información y lleva el seguimiento de desarrollo.
+            p.text-slate-600.mb-2 Puedes llevar el manejo de Caballos, Vacas, Borregos, Aves, Conejos, etc...
+            p.text-slate-600 Permite que posibles compradores conozcan a tus ejemplares.
+
+    //- 5. SECCIÓN CONTACTO
+    section#contacto
+      .container.mx-auto.px-6
+        h2.text-center.text-4xl.font-bold.mb-12.text-slate-900 Contacto
+        .container-card.flex.flex-col.bg-white.shadow-xl.overflow-hidden(class="rounded-[3rem] lg:flex-row-reverse items-center")
+          .flex.items-center.justify-center.bg-white(class="lg:w-1/2 p-10" data-aos="fade-left")
+            img.w-full.object-cover.block(src="/assets/vaquita.jpg" alt="Contacto" class="h-80 lg:h-96 rounded-[3rem]")
+
+          .p-10(class="lg:w-1/2 lg:p-16" data-aos="fade-right")
+            h3.text-3xl.font-bold.mb-6(style="color: #9ba657;") Contáctanos para más información.
+            .space-y-4.text-slate-600
+              p
+                strong Integrantes:
+                ul.list-disc.ml-6
+                  li Angel Saúl Barrios Martínez - 240196
+                  li Luis Felipe Cázarez Marquez - 240343
+                  li Aylin Esteban Luna - 240853
+                  li Jonhy Neri Hernandez - 240558
+              p
+                strong Correo: 
+                a(href="mailto:atencion_cliente@taltech.com" class="text-[#9ba657]") atencion_cliente@taltech.com
+              p
+                strong Dirección: 
+                | Av. Universidad Tecnológica No. 1000, Xicotepec de Juárez, Puebla.

@@ -1,0 +1,101 @@
+extends ../layout/inicio
+
+block content
+    style.
+        .profile-container { 
+            max-width: 900px; 
+            margin: 120px auto 40px auto; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 10px; 
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); 
+            border: 1px solid #ddd; 
+        }
+        .header-section { background: #9ba657; color: white; padding: 25px; border-radius: 8px 8px 0 0; margin-bottom: 30px; }
+        .data-section { margin-bottom: 30px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: #fff; }
+        .section-header { background: #f5f5f5; padding: 18px 25px; border-bottom: 2px solid #9ba657; }
+        .data-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 25px; border-bottom: 1px solid #eee; }
+        .data-label { font-weight: bold; color: #555; width: 180px; display: inline-block; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 10000; }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: white; padding: 30px; border-radius: 12px; width: 450px; }
+
+    div.profile-container
+        div.header-section
+            h1 Gestiona tus datos personales en Taltech
+
+        //- Información Personal
+        div.data-section
+            div.section-header: h2.font-bold.text-xl Información Personal
+            div.section-content
+                div.data-item
+                    div.data-info
+                        span.data-label Nombre(s):
+                        span.data-value= datos.nombre
+                    button.btn-edit-field(data-field="nombre" style="color: #9ba657; font-weight: bold;") Editar
+                
+                div.data-item
+                    div.data-info
+                        span.data-label Apellido Paterno:
+                        span.data-value= datos.apellido_paterno
+                    button.btn-edit-field(data-field="apellido_paterno" style="color: #9ba657; font-weight: bold;") Editar
+
+                div.data-item
+                    div.data-info
+                        span.data-label Apellido Materno:
+                        span.data-value= datos.apellido_materno
+                    button.btn-edit-field(data-field="apellido_materno" style="color: #9ba657; font-weight: bold;") Editar
+
+        //- Sección de Seguridad (Alineada correctamente afuera)
+        div.data-section
+            div.section-header: h2.font-bold.text-xl Seguridad
+            div.data-item
+                div.data-info
+                    span.data-label Contraseña:
+                    span.data-value ********
+                button#openPasswordModal(style="color: #9ba657; font-weight: bold;") Cambiar
+
+    //- Modales
+    div#editModal.modal-overlay
+        div.modal-content
+            h3#modalTitle.font-bold.text-lg.mb-4 Editar Campo
+            input#modalInput.w-full.border.p-2.rounded.mb-4(type="text")
+            div.flex.justify-end.gap-3
+                button.cancel-modal(type="button" class="bg-gray-400 text-white px-4 py-2 rounded") Cancelar
+                button#saveFieldBtn(type="button" class="bg-green-600 text-white px-4 py-2 rounded") Guardar
+
+    script.
+        const modal = document.getElementById('editModal');
+        let currentField = '';
+
+        document.querySelectorAll('.btn-edit-field').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentField = btn.dataset.field;
+                const dataInfo = btn.parentElement.querySelector('.data-info');
+                const value = dataInfo.querySelector('.data-value').innerText;
+                document.getElementById('modalInput').value = value;
+                modal.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.cancel-modal').forEach(btn => {
+            btn.addEventListener('click', () => modal.classList.remove('active'));
+        });
+
+        document.getElementById('saveFieldBtn').addEventListener('click', async (e) => {
+            e.preventDefault(); // Evitamos cualquier redirección rara
+            const valor = document.getElementById('modalInput').value;
+            try {
+                const res = await fetch('/auth/configuracion/actualizar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ campo: currentField, valor })
+                });
+                const data = await res.json();
+                if(data.success) {
+                    window.location.reload(); // Recarga controlada
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        });

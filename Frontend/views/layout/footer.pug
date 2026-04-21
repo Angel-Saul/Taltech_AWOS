@@ -1,0 +1,23 @@
+footer.w-full.mt-auto(style="background-color: #9ba657; border-radius: 2.5rem 2.5rem 0 0;")
+  .container.mx-auto.px-6.py-6
+    .flex.flex-col.items-center.justify-between.gap-4(class="md:flex-row")
+      //- Izquierda: Logo y Lema
+      .flex.items-center.gap-3
+        .bg-white.rounded-xl(class="bg-opacity-20 p-2")
+          img(src="/assets/logoBlanco.png" class="h-8 w-auto")
+        div
+          h3.text-xl.font-black.text-white.leading-none Taltech
+          p.text-white.text-xs(class="text-opacity-80") Gestión Ganadera Inteligente
+
+      //- Centro: Proyecto
+      .text-center
+        p.inline-block.rounded-full.border.border-white.text-white.font-bold.uppercase.tracking-wider(class="px-5 py-1.5 border-opacity-30 text-[11px]")
+          | Proyecto Integrador II — UTXJ
+        p.text-white.mt-2(class="text-opacity-60 text-[10px]") Universidad Tecnológica de Xicotepec de Juárez
+
+      //- Derecha: Copyright y Dev
+      .text-right.text-white
+        p.font-medium(class="text-[11px]") © 2026 Todos los derechos reservados
+        .mt-2.flex.items-center.justify-end.gap-2
+          span(class="opacity-60 text-[10px]") DESARROLLADO POR
+          span.bg-white.rounded-lg.font-bold(style="color: #9ba657;" class="px-3 py-1 text-[11px]") Taltech

@@ -1,0 +1,39 @@
+extends ../layout/inicio
+
+block content
+  .min-h-screen.flex.items-center.justify-center.bg-slate-100.px-4.py-4
+    .max-w-4xl.w-full.bg-white.shadow-2xl.overflow-hidden.border.border-slate-200.flex.flex-col(class="rounded-[3rem] md:flex-row")
+      
+      //- Lado Izquierdo (Visual)
+      .relative.flex-1.p-10.text-white.flex.flex-col.justify-center.items-center.text-center(style="background-color: #9BA657;")
+        div
+          .mb-6.relative
+            .w-32.h-32.rounded-full.border-4.border-white.flex.items-center.justify-center.mx-auto.bg-white.bg-opacity-10
+              i.fas.fa-user.text-4xl 
+          
+          //- Interpolación corregida para evitar el 'undefined'
+          h2.text-3xl.font-black.tracking-tighter.leading-tight= `${usuario.nombre} ${usuario.apellido_paterno}`
+          p.mt-2.text-sm.text-white.opacity-90.font-medium Miembro de TalTech
+          
+      //- Lado Derecho (Información)
+      .flex-1.p-8.flex.flex-col.justify-center(class="lg:p-12")
+        div
+          h1.text-3xl.font-black.text-slate-900 Mi Perfil
+          p.text-slate-500.mt-1 Información general de tu cuenta.
+
+          .mt-8.space-y-6
+            div
+              label.block.text-xs.font-black.text-slate-400.uppercase.tracking-widest.mb-1 Nombre (s)
+              p.text-lg.font-bold.text-slate-800= usuario.nombre
+            
+            .grid.grid-cols-2.gap-4
+              div
+                label.block.text-xs.font-black.text-slate-400.uppercase.tracking-widest.mb-1 Apellido Paterno
+                p.font-bold.text-slate-800= usuario.apellido_paterno || 'No registrado'
+              div
+                label.block.text-xs.font-black.text-slate-400.uppercase.tracking-widest.mb-1 Apellido Materno
+                p.font-bold.text-slate-800= usuario.apellido_materno || 'No registrado'
+
+            div
+              label.block.text-xs.font-black.text-slate-400.uppercase.tracking-widest.mb-1 Correo Electrónico
+              p.font-bold.text-slate-800= usuario.correo

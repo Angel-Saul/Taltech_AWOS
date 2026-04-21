@@ -1,0 +1,37 @@
+extends ../layout/inicio
+
+block header
+  header.relative(style="z-index: 9999;")
+    include ../layout/headerPrincipal
+
+block footer
+  include ../layout/footer
+
+block content
+  //- Contenedor principal
+  .min-h-screen.bg-slate-50.flex.items-center.justify-center.px-4
+    .max-w-4xl.w-full
+      
+      //- Tarjeta Principal
+      div(class="bg-white shadow-2xl border border-slate-200 overflow-hidden rounded-[3rem]")
+        div(class="flex flex-col md:flex-row")
+          
+          //- Lado Izquierdo: Visual (Con Animación)
+          .relative.flex-1.p-12.text-white.flex.flex-col.justify-center.items-center(style="background-color: #9BA657;")
+            div(data-aos="fade-up")
+              h3.text-4xl.font-black.text-center.leading-tight Primer paso requerido
+              p(class="mt-6 text-base opacity-90 text-justify leading-relaxed") Para comenzar a registrar tu ganado, primero necesitamos los detalles de tu unidad de producción.
+
+          //- Lado Derecho: Acción (Con Animación)
+          .flex-1.p-12.flex.flex-col.justify-center.items-center.bg-white
+            div(data-aos="fade-left" class="w-full flex flex-col items-center")
+              .text-center
+                h4.text-3xl.font-black.text-slate-800.leading-tight Configura tu Rancho
+                p.text-slate-500.mt-4.text-lg Registra el nombre, ubicación y extensión de tu propiedad para activar todas las funciones.
+                
+                .mt-10.w-full
+                  a(
+                    href="/auth/registroRancho" 
+                    style="background-color: #9BA657;" 
+                    class="w-full py-5 px-10 rounded-2xl text-white text-xl font-extrabold shadow-xl transition-all inline-block hover:brightness-110 hover:scale-105 uppercase tracking-wider text-center"
+                  ) Crear mi primer Rancho
