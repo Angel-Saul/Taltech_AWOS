@@ -1,37 +1,210 @@
-# Universidad Tecnológca de Xicotepe de Juárez
+# Proyecto-Taltech  
+### TALTECH - IDENTIDAD DEL SISTEMA
 
-### T.S.U. en Desarrollo de Software Multiplataforma
-
-## Problemática
-
-En el sector ganadero, especialmente en unidades de producción de pequeña y mediana escala, la gestión de la información se realiza principalmente mediante registros manuales en papel. Esta práctica genera problemas como pérdida de datos, errores en la captura de información y dificultad para consultar el historial de los animales. Además, la falta de un sistema centralizado complica la administración de múltiples ranchos, limitando el control del inventario y la toma de decisiones, las cuales suelen basarse en la experiencia o la intuición en lugar de datos confiables. A esto se suma la baja adopción de herramientas tecnológicas, lo que retrasa la modernización del sector y afecta su eficiencia y rentabilidad.
-
----
-
-## Objetivo General
-
-Desarrollar una plataforma web para la gestión ganadera que permita centralizar la información de múltiples ranchos, administrar el ciclo de vida de los animales y facilitar la toma de decisiones mediante el uso de datos confiables, con el fin de mejorar la eficiencia operativa y la rentabilidad del negocio ganadero.
+<p align="justify">
+Taltech es una plataforma web orientada a la gestión ganadera, diseñada para modernizar y optimizar los procesos administrativos dentro del sector pecuario. La identidad del sistema se centra en la eficiencia, accesibilidad y digitalización del campo, permitiendo transformar prácticas tradicionales en procesos basados en datos.
+</p>
 
 ---
 
-## Objetivos Específicos
+## LOGOTIPOS
 
-### Gestión de Datos y Organización
-- Diseñar un sistema que permita la administración de múltiples ranchos desde una sola plataforma.
-- Registrar y organizar la información completa de cada animal (identificación, edad, historial, valor).
-- Garantizar la integridad y seguridad de los datos almacenados.
+<table>
+   <td>Logo de la Aplicación</td>
+   <td>Logo del Sistema</td>
+  <tr>
+    <td>  <img src="docs/images/logoBlanco.png" width="50%" style="padding: 10px;" />  </td>
+    <td>   <img src="docs/images/logoBlanco.png" width="50%" style="padding: 10px;" /> </td>
+  </tr>
+</table>
 
-### Control de Salud y Cuidado Animal
-- Implementar un expediente médico digital por animal.
-- Registrar tratamientos, enfermedades y vacunas.
-- Generar alertas para eventos sanitarios importantes.
+---
 
-### Alimentación y Productividad
-- Registrar y controlar la alimentación del ganado.
-- Monitorear el crecimiento y desarrollo de los animales.
-- Calcular automáticamente la ganancia de peso y apoyar la planificación de venta.
+## DESCRIPCIÓN
 
-### Tecnología y Facilidad de Uso
-- Diseñar una interfaz accesible desde dispositivos móviles.
-- Implementar dashboards para la visualización de información clave.
-- Desarrollar una arquitectura escalable para futuras mejoras.
+<p align="justify">
+Taltech es una aplicación web que permite centralizar la gestión de múltiples ranchos, facilitando el control del ciclo de vida del ganado, incluyendo su registro, salud, alimentación y crecimiento. Además, proporciona reportes en tiempo real que apoyan la toma de decisiones estratégicas dentro del negocio ganadero.
+</p>
+
+---
+
+## PLANTEAMIENTO DEL PROBLEMA
+
+<p align="justify">
+En muchos ranchos ganaderos, la información se gestiona de manera manual mediante registros en papel, lo que provoca errores, pérdida de datos y dificultad para acceder a información histórica. Esta situación limita la capacidad de organización, control del inventario y toma de decisiones basada en datos reales. Asimismo, la falta de herramientas tecnológicas accesibles para usuarios con poca experiencia digital dificulta la modernización del sector ganadero.
+</p>
+
+---
+
+## PROPUESTA DE SOLUCIÓN
+
+<p align="justify">
+Se propone el desarrollo de una plataforma web que permita digitalizar la gestión ganadera mediante un sistema centralizado, accesible y fácil de usar. Taltech integra funcionalidades para el registro de animales, control sanitario, administración de ranchos y generación de reportes, contribuyendo a una gestión eficiente y rentable.
+</p>
+
+---
+
+## OBJETIVO GENERAL
+
+<p align="justify">
+Diseñar e implementar una plataforma web para la gestión ganadera que permita centralizar la información de múltiples ranchos, administrar el ciclo de vida del ganado y facilitar la toma de decisiones mediante datos confiables.
+</p>
+
+---
+
+## OBJETIVOS ESPECÍFICOS
+
+- **Gestión de datos:** Permitir el registro, consulta y actualización de información del ganado.  
+- **Administración multirrancho:** Gestionar múltiples propiedades desde una sola cuenta.  
+- **Control sanitario:** Registrar historial médico, vacunación y tratamientos.  
+- **Seguimiento productivo:** Controlar crecimiento, alimentación y rendimiento del ganado.  
+- **Seguridad de la información:** Proteger datos mediante autenticación y validaciones.  
+- **Facilidad de uso:** Diseñar una interfaz accesible para usuarios con poca experiencia tecnológica.  
+
+---
+
+## DIAGRAMA DE GANTT
+
+<img src="FrontEnd/Assets/Imagenes/gantt.png" width="80%" />
+
+---
+
+## JUSTIFICACIÓN DEL PROYECTO
+
+<p align="justify">
+El proyecto surge ante la necesidad de modernizar el sector ganadero, donde aún predominan prácticas tradicionales. La digitalización permite mejorar la organización de la información, reducir errores humanos y optimizar la toma de decisiones. Además, contribuye a incrementar la rentabilidad del negocio y mejorar la eficiencia operativa.
+</p>
+
+---
+
+## BENEFICIOS
+
+- Reducción de errores en registros  
+- Acceso a información en tiempo real  
+- Mejora en la toma de decisiones  
+- Centralización de datos  
+- Incremento de productividad  
+
+---
+
+## ALCANCES Y LIMITACIONES
+
+### Alcances
+- Registro y control de ganado  
+- Gestión de usuarios  
+- Administración de ranchos  
+- Visualización mediante dashboards  
+
+### Limitaciones
+- Dependencia de conexión a internet  
+- Recursos tecnológicos limitados en zonas rurales  
+- No integración con dispositivos IoT  
+- Funcionalidades limitadas por tiempo académico  
+
+---
+
+## METODOLOGÍA
+
+<p align="justify">
+El desarrollo del sistema se realizó utilizando la metodología ágil Scrum, organizando el trabajo en iteraciones (sprints) que permitieron una mejora continua del sistema durante las fases de análisis, diseño, desarrollo y pruebas.
+</p>
+
+---
+
+## ARQUITECTURA DEL SISTEMA
+
+<p align="justify">
+Taltech utiliza una arquitectura cliente-servidor de tres capas:
+</p>
+
+- **Frontend:** Interfaz de usuario  
+- **Backend:** Lógica de negocio  
+- **Base de datos:** Almacenamiento de información  
+
+<p align="justify">
+Esta arquitectura permite escalabilidad, mantenimiento eficiente y acceso desde múltiples dispositivos.
+</p>
+
+---
+
+## RESULTADOS
+
+- Reducción del tiempo de registro de 10 min a 2 min  
+- Disminución de errores en captura de datos  
+- Mejora en organización de información  
+- Toma de decisiones basada en datos  
+
+---
+
+## TABLA DE COLABORADORES
+
+| Nombre                      | Usuario GitHub | Rol |
+|----------------------------|----------------|-----|
+| Angel Saúl Barrios Martínez | - | Frontend / Desarrollo |
+| Luis Felipe Cázarez Márquez | - | Backend |
+| Aylin Esteban Luna          | - | Documentación |
+| Jonhy Neri Hernández        | - | Base de Datos |
+
+---
+
+## ORGANIGRAMA DEL EQUIPO
+
+<img src="FrontEnd/Assets/Imagenes/organigrama.png" width="80%" />
+
+---
+
+## MODELO DE BASE DE DATOS
+
+<p align="justify">
+El sistema se basa en un modelo entidad-relación compuesto por las siguientes entidades:
+</p>
+
+- Usuario  
+- Rancho  
+- Animal  
+- Registro de Salud  
+
+<p align="justify">
+Las relaciones principales son de tipo uno a muchos, permitiendo una correcta trazabilidad del ganado.
+</p>
+
+---
+
+## LISTA DE TECNOLOGÍAS
+
+<p align="justify">
+
+### Cliente
+![Pug](https://img.shields.io/badge/Pug-A86454?style=for-the-badge&logo=pug&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
+### Servidor
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+
+### Base de Datos
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+
+### Herramientas
+![XAMPP](https://img.shields.io/badge/XAMPP-FB7A24?style=for-the-badge&logo=xampp&logoColor=white)
+![Nodemon](https://img.shields.io/badge/Nodemon-76D04B?style=for-the-badge&logo=nodemon&logoColor=white)
+
+</p>
+
+---
+
+## CONCLUSIONES
+
+<p align="justify">
+Taltech demuestra que la implementación de tecnologías web en el sector ganadero mejora significativamente la gestión de la información, reduce errores y facilita la toma de decisiones. Representa una solución viable para la digitalización del campo.
+</p>
+
+---
+
+## RECOMENDACIONES
+
+- Implementar modo offline  
+- Integrar dispositivos IoT  
+- Añadir análisis predictivo  
+- Capacitar a usuarios  
