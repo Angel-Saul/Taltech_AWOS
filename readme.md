@@ -2,20 +2,36 @@
 
 ### T.S.U. en Desarrollo de Software Multiplataforma
 
-# Taltech
-Taltech es una plataforma web innovadora diseñada para transformar la gestión ganadera. En un sector donde predominan los registros en papel y la falta de control centralizado, Taltech ofrece una solución digital integral que permite a los ganaderos gestionar sus operaciones de manera eficiente, reducir errores y tomar decisiones basadas en datos reales. 
-El sistema centralizará el control de varios ranchos en un solo lugar, permitiendo administrar todo el ciclo de vida del animal: desde su registro inicial y salud, hasta su alimentación y crecimiento. El fin es facilitar la toma de decisiones, aumentar las ganancias del negocio y tener un historial completo (trazabilidad) de cada animal destinado a la venta o producción.
+## Problemática
 
-##  Contexto general del sistema:
-El prototipo web Taltech se desarrolla en el sector ganadero, específicamente orientado a unidades de producción de pequeña y mediana escala. En este entorno, la gestión de la información se caracteriza por la prevalencia de prácticas tradicionales, donde los procesos administrativos y operativos —tales como registros sanitarios, control de alimentación, inventario ganadero y seguimiento productivo— se ejecutan mediante herramientas manuales (papel, planillas, registros físicos).
+En el sector ganadero, especialmente en unidades de producción de pequeña y mediana escala, la gestión de la información se realiza principalmente mediante registros manuales en papel. Esta práctica genera problemas como pérdida de datos, errores en la captura de información y dificultad para consultar el historial de los animales. Además, la falta de un sistema centralizado complica la administración de múltiples ranchos, limitando el control del inventario y la toma de decisiones, las cuales suelen basarse en la experiencia o la intuición en lugar de datos confiables. A esto se suma la baja adopción de herramientas tecnológicas, lo que retrasa la modernización del sector y afecta su eficiencia y rentabilidad.
 
-1. Esta situación genera tres limitaciones estructurales:
+---
 
-2. Baja eficiencia en la operación diaria,
+## Objetivo General
 
-3. Falta de precisión en los datos registrados,
+Desarrollar una plataforma web para la gestión ganadera que permita centralizar la información de múltiples ranchos, administrar el ciclo de vida de los animales y facilitar la toma de decisiones mediante el uso de datos confiables, con el fin de mejorar la eficiencia operativa y la rentabilidad del negocio ganadero.
 
-4. Escasa disponibilidad de información oportuna para la toma de decisiones.
+---
 
-Por lo tanto, el prototipo web propuesto responde directamente a la necesidad de superar dichas limitaciones mediante una solución digital adaptada al contexto productivo y tecnológico del sector.
+## Objetivos Específicos
 
+### Gestión de Datos y Organización
+- Diseñar un sistema que permita la administración de múltiples ranchos desde una sola plataforma.
+- Registrar y organizar la información completa de cada animal (identificación, edad, historial, valor).
+- Garantizar la integridad y seguridad de los datos almacenados.
+
+### Control de Salud y Cuidado Animal
+- Implementar un expediente médico digital por animal.
+- Registrar tratamientos, enfermedades y vacunas.
+- Generar alertas para eventos sanitarios importantes.
+
+### Alimentación y Productividad
+- Registrar y controlar la alimentación del ganado.
+- Monitorear el crecimiento y desarrollo de los animales.
+- Calcular automáticamente la ganancia de peso y apoyar la planificación de venta.
+
+### Tecnología y Facilidad de Uso
+- Diseñar una interfaz accesible desde dispositivos móviles.
+- Implementar dashboards para la visualización de información clave.
+- Desarrollar una arquitectura escalable para futuras mejoras.
