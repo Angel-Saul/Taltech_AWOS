@@ -1,11 +1,17 @@
 # 📊 Gestión de Pruebas - Taltech
 
 ## 🔎 Descripción del sistema
-Taltech es una aplicación web orientada a la gestión de ganado. Los módulos cubiertos en las pruebas incluyen:
-- Autenticación (login y sesión)
-- Registro de usuarios
-- Gestión de animales
-- Gestión de ranchos
+Taltech es una aplicación web orientada a la gestión de ganado, diseñada para centralizar la administración de información relacionada con usuarios, animales y unidades productivas (ranchos). El sistema permite a los usuarios registrarse, autenticarse y mantener sesiones seguras mediante el uso de tokens, además de gestionar datos clave del negocio ganadero.
+
+Dentro del alcance probado, se incluyen los siguientes módulos:
+
+- **Autenticación y sesión:** Control de acceso mediante login, manejo de tokens, expiración de sesión por inactividad y recuperación de credenciales.
+- **Registro de usuarios:** Alta de nuevos usuarios, validación de datos y control de duplicados.
+- **Seguridad:** Implementación de validaciones como bloqueo de cuenta por intentos fallidos, verificación por correo electrónico y gestión de contraseñas.
+- **Integración externa:** Uso de servicios externos para autenticación (OAuth), lo que introduce dependencias externas en el sistema.
+- **Gestión básica de entidades:** Estructura inicial para el manejo de animales y ranchos, aunque con menor cobertura en pruebas respecto a otros módulos.
+
+El enfoque actual de pruebas está orientado principalmente a garantizar la seguridad, integridad de datos y correcto funcionamiento del flujo de autenticación, que es crítico para el acceso al sistema.
 
 ---
 
@@ -82,4 +88,10 @@ Taltech es una aplicación web orientada a la gestión de ganado. Los módulos c
 ---
 
 ## 📌 Conclusión
-El sistema presenta un nivel aceptable de estabilidad en los módulos de autenticación y seguridad, sin embargo, la cobertura de pruebas no está equilibrada respecto a los módulos principales del negocio, lo que puede ocultar fallos en escenarios reales de operación.
+El proceso de pruebas realizado permite identificar que el sistema presenta un comportamiento estable en los módulos relacionados con autenticación, seguridad y gestión de sesiones, alcanzando altos porcentajes de éxito en varios ciclos de prueba. Esto indica que los mecanismos de control de acceso, validación de usuarios y manejo de credenciales funcionan de manera consistente bajo los escenarios evaluados.
+
+Sin embargo, existe un desbalance importante en la cobertura de pruebas. La mayoría de los casos se concentran en autenticación y seguridad, mientras que los módulos principales del negocio, como la gestión de ganado y ranchos, tienen una representación limitada. Esto implica que, aunque el acceso al sistema sea confiable, no se puede garantizar el mismo nivel de calidad en las funcionalidades clave que aportan valor al usuario final.
+
+Adicionalmente, la presencia de integraciones externas, como el uso de OAuth, introduce riesgos que no dependen completamente del sistema, tales como fallos de disponibilidad o problemas en la comunicación con servicios de terceros. Estos escenarios, aunque parcialmente considerados, requieren una estrategia más robusta de pruebas para asegurar la resiliencia del sistema.
+
+En conjunto, el sistema demuestra una base sólida en términos de seguridad y control de acceso, pero aún requiere ampliar su cobertura de pruebas hacia los módulos funcionales del dominio para reducir riesgos en un entorno de uso real. Sin esta ampliación, existe la posibilidad de que errores críticos pasen desapercibidos fuera del flujo de autenticación.
