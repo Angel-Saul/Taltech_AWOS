@@ -1,0 +1,30 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Taltech | #{pagina}
+    script(src="https://cdn.tailwindcss.com")
+    link(rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css")
+
+  body.bg-slate-50.font-sans.antialiased.flex.flex-col.min-h-screen
+    
+    block header
+      if !ocultarTodo
+        header.relative(style="z-index: 9999;")
+          //- Lógica para intercambiar headers
+          if esPrincipal
+            include headerPrincipal.pug
+          else
+            include header.pug
+
+    main.flex-grow
+      block content
+
+    block footer
+      if !ocultarTodo
+        include footer.pug
+  
+    script(src="https://unpkg.com/aos@next/dist/aos.js")
+    script.
+      AOS.init({ duration: 1000, once: false });

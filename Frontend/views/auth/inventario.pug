@@ -1,0 +1,196 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Taltech | #{pagina}
+    script(src="https://cdn.tailwindcss.com")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
+
+  body(class="bg-slate-50 font-sans text-slate-900 flex flex-col min-h-screen")
+    header(class="relative" style="z-index: 9999;")
+      include ../layout/headerPrincipal.pug
+
+    main(class="mx-auto pt-32 pb-16 w-full max-w-6xl px-6 flex-grow")
+      div(class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6")
+        div
+          p(class="text-[#9ba657] text-[10px] uppercase font-black tracking-[0.2em] mb-2") Control de Existencias
+          h1(class="text-4xl font-black text-slate-800") Inventario de Ganado
+        
+        button(onclick="openModal()" class="bg-[#9ba657] text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:brightness-110 transition-all flex items-center gap-2")
+          i(class="fas fa-plus")
+          span Registrar Animal
+
+      if ganado && ganado.length
+        div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8")
+          each animal in ganado
+            div(class="bg-white rounded-[2.5rem] p-8 shadow-xl shadow-slate-200/50 border border-slate-100 relative group transition-all hover:-translate-y-1")
+              div(class="absolute top-6 right-6")
+                if animal.genero === 1
+                  span(class="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider") Macho
+                else
+                  span(class="bg-pink-50 text-pink-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider") Hembra
+              
+              div(class="w-24 h-24 rounded-3xl bg-slate-50 mb-6 flex items-center justify-center overflow-hidden border border-slate-100 shadow-inner")
+                if animal.fotografia
+                  img(src=`/uploads/${animal.fotografia}` class="w-full h-full object-cover")
+                else
+                  i(class="fas fa-cow text-3xl text-slate-200")
+
+              div(class="space-y-1")
+                p(class="text-[10px] font-black uppercase text-slate-400 tracking-widest") ID: #{animal.id_animal}
+                h3(class="text-xl font-black text-slate-800")= animal.nombre_animal || 'Sin nombre'
+                p(class="text-slate-500 text-sm") #{animal.datosRaza ? animal.datosRaza.nombre : 'Raza N/A'} • #{animal.datosTipo ? animal.datosTipo.nombre : 'Tipo N/A'}
+                p(class="text-slate-400 text-[10px] uppercase font-bold") Color: #{animal.color}
+
+              div(class="mt-6 pt-6 border-t border-slate-50 flex justify-between items-center")
+                div
+                  p(class="text-[10px] font-black uppercase text-slate-400") Último Peso
+                  p(class="font-bold text-slate-700")= animal.peso_inicial ? `${animal.peso_inicial} kg` : 'N/A'
+                
+                //- BOTÓN ACTUALIZADO PARA PASAR TODA LA DATA
+                button(onclick=`verDetalles(${JSON.stringify(animal)})` class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#9ba657] hover:text-white transition-all shadow-sm")
+                  i(class="fas fa-eye text-xs")
+      else
+        div(class="bg-white rounded-[3.5rem] p-20 text-center shadow-xl border border-slate-100")
+          div(class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6")
+            i(class="fas fa-clipboard-list text-3xl text-slate-200")
+          h3(class="text-2xl font-black text-slate-800") No hay ganado registrado
+          p(class="text-slate-500 mt-2") Haz clic en "Registrar Animal" para comenzar.
+
+    //- MODAL DE REGISTRO (TU MODAL ORIGINAL)
+    #modal-ganado(class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[10001] items-center justify-center p-4")
+      div(class="bg-white w-full max-w-3xl rounded-[3rem] p-10 shadow-2xl max-h-[90vh] overflow-y-auto")
+        div(class="flex justify-between items-start mb-8")
+          div
+            h2(class="text-3xl font-black text-slate-800") Registrar Animal
+            p(class="text-slate-400 text-sm") Complete todos los campos según la normativa.
+          button(onclick="closeModal()" class="text-slate-300 hover:text-slate-600 transition-colors")
+            i(class="fas fa-times text-2xl")
+        
+        form(method="POST" action=`/auth/inventario?_csrf=${csrfToken}` enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-6")
+          input(type="hidden" name="_csrf" value=csrfToken)
+          div(class="space-y-4")
+            div
+              label(class="block text-xs font-black uppercase text-slate-400 mb-2") Nombre del Animal
+              input(name="nombre_animal" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#9ba657]/20 transition-all")
+            div
+              label(class="block text-xs font-black uppercase text-slate-400 mb-2") Género
+              select(name="genero" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none")
+                option(value="1") Macho
+                option(value="2") Hembra
+            div
+              label(class="block text-xs font-black uppercase text-slate-400 mb-2") Fecha de Nacimiento
+              input(type="date" name="fecha_nacimiento" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none")
+            div
+              label(class="block text-xs font-black uppercase text-slate-400 mb-2") Color / Señas Particulares
+              input(name="color" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none")
+
+          div(class="space-y-4")
+            div
+              label(class="block text-xs font-black uppercase text-slate-400 mb-2") Tipo de Ganado
+              select(name="id_tipo_ganado" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none")
+                each tipo in tipos
+                  option(value=tipo.id_tipo_ganado)= tipo.nombre
+            div
+              label(class="block text-xs font-black uppercase text-slate-400 mb-2") Raza
+              select(name="id_raza" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none")
+                each raza in razas
+                  option(value=raza.id_raza)= raza.nombre
+            div(class="grid grid-cols-2 gap-4")
+              div
+                label(class="block text-xs font-black uppercase text-slate-400 mb-2") Peso Inicial (kg)
+                input(type="number" step="0.01" name="peso_inicial" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none")
+              div
+                label(class="block text-xs font-black uppercase text-slate-400 mb-2") Altura Inicial (m)
+                input(type="number" step="0.01" name="altura_inicial" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none")
+            div
+              label(class="block text-xs font-black uppercase text-slate-400 mb-2") Fotografía de Registro
+              div(class="relative group")
+                input(type="file" name="fotografia" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10")
+                div(class="w-full bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl px-4 py-3 text-center text-slate-400 group-hover:bg-slate-100 transition-all")
+                  i(class="fas fa-camera mr-2")
+                  span Seleccionar imagen
+
+          div(class="col-span-1 md:col-span-2 flex gap-4 mt-4")
+            button(type="button" onclick="closeModal()" class="flex-1 bg-slate-100 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-200 transition-all") Cancelar
+            button(type="submit" class="flex-1 bg-[#9ba657] text-white py-4 rounded-2xl font-bold shadow-lg shadow-[#9ba657]/20 hover:brightness-110 transition-all") Guardar Registro
+
+    //- MODAL DE DETALLES (NUEVO PARA VISUALIZAR)
+    #modal-detalles(class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[10002] items-center justify-center p-4")
+      div(class="bg-white w-full max-w-2xl rounded-[3rem] p-10 shadow-2xl relative overflow-hidden")
+        button(onclick="closeModalDetalles()" class="absolute top-8 right-8 text-slate-300 hover:text-slate-600 transition-colors z-20")
+          i(class="fas fa-times text-2xl")
+        
+        div(class="flex flex-col items-center text-center")
+          div(class="w-40 h-40 rounded-3xl bg-slate-50 mb-6 overflow-hidden border-4 border-white shadow-xl")
+            img#det-foto(src="" class="w-full h-full object-cover")
+          
+          span#det-genero(class="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider mb-4")
+          h2#det-nombre(class="text-4xl font-black text-slate-800")
+          p#det-ids(class="text-slate-400 text-sm mt-1")
+          
+          div(class="grid grid-cols-2 gap-4 w-full mt-10")
+            div(class="bg-slate-50 p-6 rounded-3xl border border-slate-100")
+              p(class="text-[10px] font-black uppercase text-slate-400 mb-1") Raza / Tipo
+              p#det-raza-tipo(class="font-bold text-slate-700 text-lg")
+            div(class="bg-slate-50 p-6 rounded-3xl border border-slate-100")
+              p(class="text-[10px] font-black uppercase text-slate-400 mb-1") Color
+              p#det-color(class="font-bold text-slate-700 text-lg")
+            div(class="bg-slate-50 p-6 rounded-3xl border border-slate-100")
+              p(class="text-[10px] font-black uppercase text-slate-400 mb-1") Peso Inicial
+              p#det-peso(class="font-bold text-slate-700 text-lg text-[#9ba657]")
+            div(class="bg-slate-50 p-6 rounded-3xl border border-slate-100")
+              p(class="text-[10px] font-black uppercase text-slate-400 mb-1") Nacimiento
+              p#det-fecha(class="font-bold text-slate-700 text-lg")
+
+    footer
+      include ../layout/footer.pug
+
+    script.
+      function openModal() { 
+        const modal = document.getElementById('modal-ganado');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() { 
+        const modal = document.getElementById('modal-ganado');
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
+      // NUEVAS FUNCIONES PARA VER DETALLES
+      function verDetalles(animal) {
+        // Llenar datos en el modal
+        document.getElementById('det-foto').src = animal.fotografia ? `/uploads/${animal.fotografia}` : '';
+        document.getElementById('det-nombre').innerText = animal.nombre_animal || 'Sin nombre';
+        document.getElementById('det-ids').innerText = `ID Animal: ${animal.id_animal}`;
+        document.getElementById('det-raza-tipo').innerText = `${animal.datosRaza?.nombre || 'N/A'} - ${animal.datosTipo?.nombre || 'N/A'}`;
+        document.getElementById('det-color').innerText = animal.color;
+        document.getElementById('det-peso').innerText = animal.peso_inicial ? `${animal.peso_inicial} kg` : 'N/A';
+        document.getElementById('det-fecha').innerText = new Date(animal.fecha_nacimiento).toLocaleDateString();
+
+        const genSpan = document.getElementById('det-genero');
+        if(animal.genero === 1) {
+          genSpan.innerText = 'Macho';
+          genSpan.className = 'px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider mb-4 bg-blue-50 text-blue-600';
+        } else {
+          genSpan.innerText = 'Hembra';
+          genSpan.className = 'px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider mb-4 bg-pink-50 text-pink-600';
+        }
+
+        // Mostrar modal
+        const modal = document.getElementById('modal-detalles');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModalDetalles() {
+        const modal = document.getElementById('modal-detalles');
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }

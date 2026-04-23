@@ -1,0 +1,165 @@
+extends ../layout/inicio
+
+block content
+  - var ocultarTodo = false
+
+  //- Contenedor de Notificaciones (Z-index manual para evitar error de Pug)
+  div#container-notifications.fixed.top-5.right-5.flex.flex-col.gap-3.w-full.max-w-xs.pointer-events-none(style="z-index: 10000;")
+    if errores || exito
+      if errores
+        each error in errores
+          div(class="toast-notification bg-white border-l-4 border-red-500 shadow-2xl p-4 rounded-xl flex items-center justify-between transform transition-all duration-500 ease-in-out translate-x-full opacity-0 relative overflow-hidden pointer-events-auto")
+            div.flex.items-center.gap-3
+              span.bg-red-100.p-2.rounded-full
+                svg.w-5.h-5.text-red-600(fill="none" stroke="currentColor" viewBox="0 0 24 24")
+                  path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z")
+              p.text-sm.text-gray-800.font-medium= error.msg || error
+            button.btn-close-toast.ml-4.text-gray-400(class="hover:text-gray-600 transition-colors")
+              svg.w-4.h-4(fill="none" stroke="currentColor" viewBox="0 0 24 24")
+                path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12")
+            div(class="toast-progress absolute bottom-0 left-0 h-1 w-full bg-red-500 transition-all duration-[5000ms] ease-linear")
+
+  .min-h-screen.flex.items-center.justify-center.bg-slate-100.px-4.py-4.relative.pointer-events-none(style="z-index: 1;")
+    .max-w-4xl.w-full.bg-white.shadow-2xl.overflow-hidden.border.border-slate-200.flex.flex-col.pointer-events-auto(class="rounded-[3rem] md:flex-row")
+      
+      //- Columna Izquierda
+      .relative.flex-1.p-10.text-white.flex.flex-col.justify-center.items-center.text-center(style="background-color: #9BA657;")
+        div(data-aos="fade-up")
+          .mb-4
+            img.mx-auto(src="/assets/logoBlanco.png" alt="Logo TalTech" class="h-20 w-auto drop-shadow-lg")
+          h2.text-3xl.font-black.tracking-tighter.leading-tight Bienvenido(a) a 
+            br
+            span.text-white TalTech
+          p.mt-3.text-sm.text-white.opacity-80.font-medium Gestión inteligente para el éxito de su ganado.
+        .absolute.bottom-0.left-0.w-full.h-20.opacity-20(style="background: linear-gradient(transparent, rgba(255,255,255,0.4));")
+
+      //- Columna Derecha
+      .flex-1.p-8.flex.flex-col.justify-center(class="lg:p-12")
+        div(data-aos="fade-left")
+          h1.text-3xl.font-black.text-slate-900 Inicio de Sesión
+          p.text-slate-500.mt-1 Ingrese sus credenciales para acceder.
+
+          form#formLogin.mt-8.space-y-4(action="/auth/login" method="POST" novalidate)
+            input(type="hidden" name="_csrf" value=csrfToken)
+            
+            div
+              label.block.text-xs.font-black.text-slate-400.uppercase.tracking-widest.mb-2 Correo Electrónico
+              input.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50.transition-all(
+                type="email" 
+                name="email" 
+                data-label="Correo Electrónico"
+                placeholder="ejemplo@correo.com" 
+                value= usuario ? usuario.email : ''
+                required 
+                class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm"
+              )
+            div
+              label.block.text-xs.font-black.text-slate-400.uppercase.tracking-widest.mb-2 Contraseña
+              .relative
+                input#password.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50.transition-all(
+                  type="password" 
+                  name="password" 
+                  data-label="Contraseña"
+                  placeholder="••••••••" 
+                  required 
+                  class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm"
+                )
+                button.toggle-password.absolute.right-3.top-3.text-slate-400(type="button" data-target="password")
+                  svg.h-5.w-5(fill="none" viewBox="0 0 24 24" stroke="currentColor")
+                    path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z")
+                    path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z")
+            
+            .flex.flex-col.gap-4.pt-4
+              button.w-full.py-4.rounded-2xl.text-white.font-bold.shadow-xl.transition-all(
+                type="submit" 
+                style="background-color: #9BA657;" 
+                class="hover:brightness-110 shadow-[#9BA657]/20"
+              ) Iniciar Sesión
+              
+              .flex.flex-wrap.items-center.justify-between.gap-2.mt-2
+                p.text-sm.text-slate-500 ¿No tienes cuenta? 
+                  a.font-bold(href="/auth/registro" style="color: #9BA657;" class="hover:underline ml-1") Regístrate
+                
+                a.font-bold(href="/auth/recuperacionPass" style="color: #9BA657;" class="text-[11px] uppercase tracking-tighter hover:underline") ¿Olvidó su contraseña?
+
+  script.
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('container-notifications');
+      const form = document.getElementById('formLogin');
+
+      function initToast(toast, index = 0) {
+        const progressBar = toast.querySelector('.toast-progress');
+        setTimeout(() => {
+          toast.classList.remove('translate-x-full', 'opacity-0');
+          toast.classList.add('translate-x-0', 'opacity-100');
+          if (progressBar) {
+            setTimeout(() => { progressBar.style.width = '0%'; }, 100);
+          }
+        }, index * 200);
+
+        const close = () => {
+          toast.classList.replace('translate-x-0', 'translate-x-full');
+          toast.classList.replace('opacity-100', 'opacity-0');
+          setTimeout(() => toast.remove(), 500);
+        };
+
+        const closeBtn = toast.querySelector('.btn-close-toast');
+        if(closeBtn) closeBtn.onclick = close;
+        setTimeout(close, 5000 + (index * 200));
+      }
+
+      function createToast(mensaje) {
+        const toast = document.createElement('div');
+        toast.className = "toast-notification bg-white border-l-4 border-red-500 shadow-2xl p-4 rounded-xl flex items-center justify-between transform transition-all duration-500 ease-in-out translate-x-full opacity-0 relative overflow-hidden pointer-events-auto";
+        toast.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="bg-red-100 p-2 rounded-full">
+              <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            </span>
+            <p class="text-sm text-gray-800 font-medium">` + mensaje + `</p>
+          </div>
+          <button class="btn-close-toast ml-4 text-gray-400 hover:text-gray-600 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+          <div class="toast-progress absolute bottom-0 left-0 h-1 w-full bg-red-500 transition-all duration-[5000ms] ease-linear"></div>
+        `;
+        container.appendChild(toast);
+        initToast(toast);
+      }
+
+      // Inicializar Toasts existentes del servidor
+      document.querySelectorAll('.toast-notification').forEach((t, i) => initToast(t, i));
+
+      // Validación del cliente (Envío de Toasts si los campos están vacíos)
+      form.addEventListener('submit', (e) => {
+        const inputs = form.querySelectorAll('input[required]');
+        let errorsCount = 0;
+        
+        inputs.forEach(input => {
+          if (!input.value.trim()) {
+            errorsCount++;
+            input.classList.add('border-red-500', 'bg-red-50');
+            createToast("El campo " + (input.getAttribute('data-label') || 'requerido') + " es obligatorio");
+          } else {
+            input.classList.remove('border-red-500', 'bg-red-50');
+          }
+        });
+
+        if (errorsCount > 0) e.preventDefault();
+      });
+
+      // Lógica de mostrar/ocultar contraseña (RESTAURADO)
+      document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          const input = document.getElementById(targetId);
+          if (input.type === 'password') {
+            input.type = 'text';
+            this.classList.add('text-[#9BA657]');
+          } else {
+            input.type = 'password';
+            this.classList.remove('text-[#9BA657]');
+          }
+        });
+      });
+    });

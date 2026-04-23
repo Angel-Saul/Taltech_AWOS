@@ -1,0 +1,73 @@
+header.fixed.w-full.z-50.transition-all.duration-300(style="background-color: #9ba657;")
+  .container.mx-auto.px-6
+    nav.flex.items-center.justify-between.py-3
+      //- Dinámico: Si está autenticado apunta a mis-ranchos, si no a inicio
+      a.flex.items-center.gap-3(href=autenticado ? "/auth/mis-ranchos" : "/inicio" class="hover:opacity-90 transition-opacity")
+        img(src="/assets/logoBlanco.png" alt="Taltech Logo" class="h-9 w-auto")
+        span.text-2xl.font-black.tracking-tighter.text-white Taltech
+
+      button#menu-btn.block(class="lg:hidden text-white focus:outline-none")
+        svg.w-7.h-7(fill="none" stroke="currentColor" viewBox="0 0 24 24")
+          path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7")
+
+      div#menu-links.hidden.absolute.top-full.left-0.w-full.bg-white.flex-col.p-6.gap-4.shadow-xl(class="lg:static lg:flex lg:flex-row lg:w-auto lg:bg-transparent lg:p-0 lg:shadow-none lg:gap-8 lg:items-center")
+        
+        if autenticado
+          //- --- MENÚ PARA USUARIOS LOGUEADOS ---
+          a.text-sm.font-bold.text-white(href="/auth/mis-ranchos" class="hover:text-slate-100 opacity-90") Inicio
+          a.text-sm.font-bold.text-white(href="/auth/editar-rancho" class="hover:text-slate-100 opacity-90") Mi Rancho
+          a.text-sm.font-bold.text-white(href="/auth/inventario" class="hover:text-slate-100 opacity-90") Mi Ganado
+          
+          hr(class="lg:hidden border-slate-200")
+
+          .relative.inline-block.text-left
+            button#profile-btn.flex.items-center.gap-1.text-sm.font-bold.text-white.px-4.py-2.rounded-lg(class="hover:bg-white/10 transition-colors focus:outline-none")
+              span Perfil
+              svg.w-4.h-4(fill="none" stroke="currentColor" viewBox="0 0 24 24")
+                path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7")
+            
+            div#profile-menu.hidden.absolute.right-0.z-10.mt-2.w-48.origin-top-right.rounded-md.bg-white.py-1.shadow-lg.ring-1.ring-black.ring-opacity-5(role="menu")
+              a.block.px-4.py-2.text-sm.text-gray-700(href="/auth/perfil" class="hover:bg-slate-100") Ver Perfil
+              a.block.px-4.py-2.text-sm.text-gray-700(href="/auth/configuracion" class="hover:bg-slate-100") Configuración
+              hr.my-1.border-slate-100
+              //- El logout debería limpiar la cookie
+              a.block.px-4.py-2.text-sm.font-bold.text-red-600(href="/auth/login" class="hover:bg-red-50") Cerrar Sesión
+
+        else
+          //- --- MENÚ PARA VISITANTES (PUBLICO) ---
+          a.text-sm.font-bold.text-white(href="/inicio#inicio" class="hover:text-slate-100 opacity-90") Inicio
+          a.text-sm.font-bold.text-white(href="/inicio#acerca-de" class="hover:text-slate-100 opacity-90") Acerca de
+          a.text-sm.font-bold.text-white(href="/inicio#servicios" class="hover:text-slate-100 opacity-90") Servicios
+          a.text-sm.font-bold.text-white(href="/inicio#contacto" class="hover:text-slate-100 opacity-90") Contacto
+          
+          hr(class="lg:hidden border-white/20")
+
+          .flex.flex-col.gap-3(class="lg:flex-row lg:items-center lg:ml-4")
+            a.text-sm.font-bold.text-white.px-4.py-2.rounded-lg(href="/auth/login" class="hover:bg-white/10 transition-colors") Iniciar Sesión
+            a.text-sm.font-bold.px-5.py-2.rounded-lg.bg-white.transition-all(href="/auth/registro" style="color: #9ba657;" class="hover:bg-slate-50 shadow-lg") Registrarse
+
+script.
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu-links');
+  const profileBtn = document.getElementById('profile-btn');
+  const profileMenu = document.getElementById('profile-menu');
+
+  if(btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('flex');
+    });
+  }
+
+  if(profileBtn && profileMenu) {
+    profileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      profileMenu.classList.toggle('hidden');
+    });
+
+    window.addEventListener('click', () => {
+      if (!profileMenu.classList.contains('hidden')) {
+        profileMenu.classList.add('hidden');
+      }
+    });
+  }

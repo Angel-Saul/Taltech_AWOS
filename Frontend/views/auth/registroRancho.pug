@@ -1,0 +1,54 @@
+extends ../layout/inicio
+
+block content
+  - var ocultarTodo = false
+
+  .min-h-screen.flex.items-center.justify-center.bg-slate-100.px-4.py-4.relative.pointer-events-none(style="z-index: 1;")
+    .max-w-4xl.w-full.bg-white.shadow-2xl.overflow-hidden.border.border-slate-200.flex.flex-col.pointer-events-auto(class="rounded-[3rem] md:flex-row")
+      
+      .relative.flex-1.p-10.text-white.flex.flex-col.justify-center.items-center.text-center(style="background-color: #9BA657;")
+        div(data-aos="fade-up")
+          .mb-4
+            img.mx-auto(src="/assets/logoBlanco.png" alt="Logo TalTech" class="h-20 w-auto drop-shadow-lg")
+          h2.text-3xl.font-black.tracking-tighter.leading-tight Registra tu 
+            br
+            span.text-white Rancho
+          p.mt-3.text-sm.text-white.opacity-80.font-medium Comienza a gestionar tu ganado de manera profesional.
+        .absolute.bottom-0.left-0.w-full.h-20.opacity-20(style="background: linear-gradient(transparent, rgba(255,255,255,0.4));")
+
+      .flex-1.p-8.flex.flex-col.justify-center(class="lg:p-12")
+        div(data-aos="fade-left")
+          h1.text-3xl.font-black.text-slate-900 Nuevo Rancho
+          p.text-slate-500.mt-1 Ingrese los detalles de su propiedad.
+
+          //- El action coincide con la ruta router.post('/registroRancho'...)
+          form(action="/auth/registroRancho" method="POST" class="mt-6 space-y-4")
+            //- Token de seguridad obligatorio para evitar ForbiddenError
+            input(type="hidden" name="_csrf" value=csrfToken)
+            
+            div
+              label.block.text-xs.font-black.text-slate-400.uppercase.tracking-widest.mb-1 Nombre del Rancho
+              input.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50(
+                type="text" 
+                name="nombre" 
+                placeholder="Ej. El Centenario" 
+                required 
+                class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm transition-all"
+              )
+            
+            div
+              label.block.text-xs.font-black.text-slate-400.uppercase.tracking-widest.mb-1 Descripción
+              textarea.w-full.px-4.py-3.rounded-2xl.border.border-slate-200.bg-slate-50(
+                name="descripcion" 
+                placeholder="Breve descripción..." 
+                rows="5" 
+                required 
+                class="focus:ring-2 focus:ring-[#9BA657] outline-none text-sm resize-none transition-all"
+              )
+
+            .pt-4
+              button.w-full.py-4.rounded-2xl.text-white.font-bold.shadow-xl.transition-all(
+                type="submit" 
+                style="background-color: #9BA657;" 
+                class="hover:brightness-110"
+              ) Guardar Rancho

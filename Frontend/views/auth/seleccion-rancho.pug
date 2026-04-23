@@ -1,0 +1,46 @@
+extends ../layout/inicio
+
+block content
+  - var ocultarTodo = false
+
+  .min-h-screen.flex.items-center.justify-center.bg-slate-100.px-4.py-4.relative.pointer-events-none(style="z-index: 1;")
+    .max-w-4xl.w-full.bg-white.shadow-2xl.overflow-hidden.border.border-slate-200.flex.flex-col.pointer-events-auto(class="rounded-[3rem] md:flex-row")
+      
+      //- Columna Izquierda Decorativa
+      .relative.flex-1.p-10.text-white.flex.flex-col.justify-center.items-center.text-center(style="background-color: #9BA657;")
+        div(data-aos="fade-up")
+          .mb-4
+            img.mx-auto(src="/assets/logoBlanco.png" alt="Logo TalTech" class="h-20 w-auto drop-shadow-lg")
+          h2.text-3xl.font-black.tracking-tighter.leading-tight ¡Hola de nuevo!
+          p.mt-3.text-sm.text-white.opacity-80.font-medium Estamos listos para empezar a gestionar tu ganado.
+        .absolute.bottom-0.left-0.w-full.h-20.opacity-20(style="background: linear-gradient(transparent, rgba(255,255,255,0.4));")
+
+      //- Columna Derecha de Opciones
+      .flex-1.p-8.flex.flex-col.justify-center(class="lg:p-12")
+        div(data-aos="fade-left")
+          h1.text-3xl.font-black.text-slate-900 Configuración inicial
+          p.text-slate-500.mt-1 Seleccione cómo desea comenzar en TalTech.
+
+          .mt-10.space-y-4
+            //- Opción de Crear Nuevo
+            a.group.block.p-6.rounded-3xl.border-2.border-slate-100.transition-all(href="/auth/registro-rancho" class="hover:border-[#9BA657] hover:bg-slate-50")
+              .flex.items-center.gap-4
+                .p-3.rounded-2xl.bg-green-100.text-green-600(class="group-hover:bg-[#9BA657] group-hover:text-white transition-colors")
+                  svg.w-8.h-8(fill="none" stroke="currentColor" viewBox="0 0 24 24")
+                    path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6")
+                div
+                  h3.font-bold.text-slate-900 Registrar mi propio rancho
+                  p.text-xs.text-slate-500 Crea un espacio nuevo para tu ganado.
+
+            //- Opción de Unirse (Opcional, la puedes dejar deshabilitada o borrarla)
+            button.group.w-full.text-left.p-6.rounded-3xl.border-2.border-slate-100.transition-all.opacity-60(disabled)
+              .flex.items-center.gap-4
+                .p-3.rounded-2xl.bg-blue-100.text-blue-600
+                  svg.w-8.h-8(fill="none" stroke="currentColor" viewBox="0 0 24 24")
+                    path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z")
+                div
+                  h3.font-bold.text-slate-900 Unirme a un rancho existente
+                  p.text-xs.text-slate-500 (Próximamente) Accede con un código de invitación.
+          
+          .mt-8.text-center
+            a.text-xs.font-bold.uppercase.tracking-widest.text-slate-400(href="/auth/login" class="hover:text-red-500") Cerrar sesión
