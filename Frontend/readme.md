@@ -49,6 +49,7 @@ El frontend sigue una estructura basada en vistas renderizadas:
 
 ## Funcionalidades Principales
 
+
 - Formularios para registro de datos  
 - Visualización de información del ganado  
 - Navegación entre módulos del sistema  
