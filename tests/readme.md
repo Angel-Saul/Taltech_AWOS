@@ -99,5 +99,6 @@ Los ciclos agrupan ejecuciones estratégicas para medir la calidad por áreas cr
 
 ---
 
+
 ## 📌 Conclusión
 El proceso de pruebas realizado confirma que el sistema **Taltech** es altamente confiable en sus flujos de acceso, seguridad y manejo de perfiles. Sin embargo, se recomienda expandir el plan de pruebas hacia las funcionalidades de gestión ganadera para asegurar que la integridad de los datos del negocio sea tan robusta como su sistema de autenticación.
